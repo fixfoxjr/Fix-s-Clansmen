@@ -7,64 +7,68 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b001d; /* dark midnight purple */
-      color: #eee;
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #0c0c0c;
+      color: #b0b0ff;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 20px;
     }
     header {
-      background: #1a002d;
-      padding: 20px;
+      width: 100%;
       text-align: center;
-      font-size: 2rem;
+      font-size: 2.5rem;
       font-weight: bold;
-      border-bottom: 3px solid #4b0082;
-      color: #fff;
+      margin-bottom: 20px;
+      color: #00bfff;
     }
     .wrapper {
-      padding: 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
-    .calendar {
-      margin-top: 30px;
-      background: #150025;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 0 15px #000;
+      background-color: #111;
+      border: 2px solid #1e1e3f;
+      border-radius: 15px;
+      padding: 25px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 0 20px #2e2e5f;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 10px;
+      margin-top: 15px;
     }
     th, td {
-      padding: 10px;
-      border-bottom: 1px solid #3a003f;
+      padding: 12px;
+      border-bottom: 1px solid #2e2e5f;
       text-align: left;
     }
     th {
-      background: #2a004c;
-      color: #fff;
+      background-color: #1b1b3a;
+      color: #00bfff;
     }
     .status-in {
-      color: #7fffd4; /* aquamarine for In War */
+      color: #7fffd4;
       font-weight: bold;
     }
     .status-out {
-      color: #ff6f61; /* soft red for Out */
+      color: #ff6f61;
       font-weight: bold;
     }
     .strategy {
       font-style: italic;
-      color: #ccc;
+      color: #b0b0ff;
+    }
+    h2 {
+      color: #00bfff;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 <body>
-  <header>Fix's Clansmen — War Participation Calendar</header>
-
-  <div class="wrapper">
-    <div class="calendar">
+  <div>
+    <header>Fix's Clansmen — War Calendar</header>
+    <div class="wrapper">
       <h2>Clan War Roster</h2>
       <table id="warTable">
         <thead>
