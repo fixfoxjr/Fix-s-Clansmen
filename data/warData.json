@@ -1,12 +1,4 @@
 {
-  "Fix": { 
-    "status": "out", 
-    "th": 17,
-    "strategy": "Valk Rush" 
-  },
-  "Dei": { 
-    "status": "in", 
-    "th": 11,
-    "strategy": "Hog Rush" 
-  }
+  "Fix": { "status": "out" "th": 17 "strategy": "Valk Rush"},
+  "Dei": { "status": "in" "th": 11"strategy": "Hog Rush"}
 }
