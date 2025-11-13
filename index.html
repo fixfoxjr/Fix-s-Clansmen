@@ -102,16 +102,7 @@
       </table>
     </div>
 
-    <div class="add-player">
-      <h2>Add / Update Player</h2>
-      <input type="text" id="playerName" placeholder="Player Name" />
-      <select id="playerStatus">
-        <option value="in">Joining War</option>
-        <option value="out">Not Joining (Upgrading Heroes)</option>
-      </select>
-      <input type="text" id="playerStrategy" placeholder="Army / Strategy (e.g. Queen Charge Lalo)" />
-      <button onclick="addPlayer()">Add / Update</button>
-    </div>
+    
   </div>
 
   <script>
@@ -125,11 +116,11 @@
         players = await res.json();
         renderTable();
       } catch (err) {
-        console.error("Failed to load data", err);
+        console.error("Failed to /* addPlayer disabled */ err);
       }
     }
 
-    function addPlayer() {
+    function /* addPlayer disabled */ {
       alert("Since you're using GitHub Pages, saving must be done manually.
 
 Add the player here to preview, but remember to update warData.json in your repo.");
