@@ -114,14 +114,26 @@
   </div>
 
   <script>
+    const DATA_URL = "data/warData.json"; // file you update manually
     const tableBody = document.querySelector('#warTable tbody');
-    const players = {};
+    let players = {};
+
+    async function loadData() {
+      try {
+        const res = await fetch(DATA_URL + `?t=${Date.now()}`); // prevent caching
+        players = await res.json();
+        renderTable();
+      } catch (err) {
+        console.error("Failed to load data", err);
+      }
+    }
 
     function addPlayer() {
+      alert("Since you're using GitHub Pages, saving must be done manually.\n\nAdd the player here to preview, but remember to update warData.json in your repo.");
+
       const name = document.getElementById('playerName').value.trim();
       const status = document.getElementById('playerStatus').value;
       const strategy = document.getElementById('playerStrategy').value.trim();
-
       if (!name) return alert('Enter a name!');
 
       players[name] = { status, strategy };
@@ -132,17 +144,17 @@
       tableBody.innerHTML = '';
       Object.keys(players).forEach(name => {
         const { status, strategy } = players[name];
-
         const row = document.createElement('tr');
         row.innerHTML = `
           <td>${name}</td>
-          <td class="status-${status}">${status === 'in' ? 'In War' : 'Out (Upgrading)'} </td>
+          <td class="status-${status}">${status === 'in' ? 'In War' : 'Out (Upgrading)'}</td>
           <td class="strategy">${strategy || '---'}</td>
         `;
-
         tableBody.appendChild(row);
       });
     }
+
+    loadData();
   </script>
 </body>
 </html>
