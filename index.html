@@ -93,6 +93,7 @@
           <tr>
             <th>Player</th>
             <th>Status</th>
+            <th>Town Hall</th>
             <th>Army/Strategy</th>
           </tr>
         </thead>
@@ -129,7 +130,9 @@
     }
 
     function addPlayer() {
-      alert("Since you're using GitHub Pages, saving must be done manually.\n\nAdd the player here to preview, but remember to update warData.json in your repo.");
+      alert("Since you're using GitHub Pages, saving must be done manually.
+
+Add the player here to preview, but remember to update warData.json in your repo.");
 
       const name = document.getElementById('playerName').value.trim();
       const status = document.getElementById('playerStatus').value;
@@ -148,6 +151,7 @@
         row.innerHTML = `
           <td>${name}</td>
           <td class="status-${status}">${status === 'in' ? 'In War' : 'Out (Upgrading)'}</td>
+          <td>${th || '---'}</td>
           <td class="strategy">${strategy || '---'}</td>
         `;
         tableBody.appendChild(row);
