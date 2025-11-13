@@ -8,16 +8,17 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #111;
+      background: #0b001d; /* dark midnight purple */
       color: #eee;
     }
     header {
-      background: #222;
+      background: #1a002d;
       padding: 20px;
       text-align: center;
       font-size: 2rem;
       font-weight: bold;
-      border-bottom: 3px solid #444;
+      border-bottom: 3px solid #4b0082;
+      color: #fff;
     }
     .wrapper {
       padding: 20px;
@@ -26,10 +27,10 @@
     }
     .calendar {
       margin-top: 30px;
-      background: #1b1b1b;
+      background: #150025;
       border-radius: 10px;
       padding: 20px;
-      box-shadow: 0 0 10px #000;
+      box-shadow: 0 0 15px #000;
     }
     table {
       width: 100%;
@@ -38,47 +39,24 @@
     }
     th, td {
       padding: 10px;
-      border-bottom: 1px solid #333;
+      border-bottom: 1px solid #3a003f;
       text-align: left;
     }
     th {
-      background: #333;
+      background: #2a004c;
+      color: #fff;
     }
     .status-in {
-      color: #4caf50;
+      color: #7fffd4; /* aquamarine for In War */
       font-weight: bold;
     }
     .status-out {
-      color: #f44336;
+      color: #ff6f61; /* soft red for Out */
       font-weight: bold;
     }
     .strategy {
       font-style: italic;
       color: #ccc;
-    }
-    .add-player {
-      margin-top: 30px;
-      background: #1b1b1b;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px #000;
-    }
-    input, select, button {
-      padding: 10px;
-      margin: 5px 0;
-      width: 100%;
-      border-radius: 5px;
-      border: none;
-    }
-    button {
-      background: #4caf50;
-      color: white;
-      cursor: pointer;
-      font-size: 1rem;
-      margin-top: 10px;
-    }
-    button:hover {
-      background: #45a049;
     }
   </style>
 </head>
@@ -101,43 +79,27 @@
         </tbody>
       </table>
     </div>
-
-    
   </div>
 
   <script>
-    const DATA_URL = "data/warData.json"; // file you update manually
+    const DATA_URL = "data/warData.json";
     const tableBody = document.querySelector('#warTable tbody');
     let players = {};
 
     async function loadData() {
       try {
-        const res = await fetch(DATA_URL + `?t=${Date.now()}`); // prevent caching
+        const res = await fetch(DATA_URL + `?t=${Date.now()}`);
         players = await res.json();
         renderTable();
       } catch (err) {
-        console.error("Failed to /* addPlayer disabled */ err);
+        console.error("Failed to load data", err);
       }
-    }
-
-    function /* addPlayer disabled */ {
-      alert("Since you're using GitHub Pages, saving must be done manually.
-
-Add the player here to preview, but remember to update warData.json in your repo.");
-
-      const name = document.getElementById('playerName').value.trim();
-      const status = document.getElementById('playerStatus').value;
-      const strategy = document.getElementById('playerStrategy').value.trim();
-      if (!name) return alert('Enter a name!');
-
-      players[name] = { status, strategy };
-      renderTable();
     }
 
     function renderTable() {
       tableBody.innerHTML = '';
       Object.keys(players).forEach(name => {
-        const { status, strategy } = players[name];
+        const { status, th, strategy } = players[name];
         const row = document.createElement('tr');
         row.innerHTML = `
           <td>${name}</td>
