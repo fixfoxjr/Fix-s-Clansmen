@@ -29,7 +29,7 @@
       border: 2px solid #1e1e3f;
       border-radius: 15px;
       padding: 25px;
-      max-width: 600px;
+      max-width: 800px;
       width: 100%;
       box-shadow: 0 0 20px #2e2e5f;
     }
@@ -46,6 +46,7 @@
     th {
       background-color: #1b1b3a;
       color: #00bfff;
+      cursor: pointer;
     }
     .status-in {
       color: #7fffd4;
@@ -59,9 +60,24 @@
       font-style: italic;
       color: #b0b0ff;
     }
+    .unknown {
+      color: #ffcc00;
+      font-weight: bold;
+    }
     h2 {
       color: #00bfff;
       margin-bottom: 10px;
+    }
+    .controls {
+      margin-bottom: 15px;
+    }
+    .controls label, .controls select {
+      color: #b0b0ff;
+      margin-right: 10px;
+    }
+    .stats {
+      margin-top: 15px;
+      color: #b0b0ff;
     }
   </style>
 </head>
@@ -70,53 +86,129 @@
     <header>Fix's Clansmen</header>
     <div class="wrapper">
       <h2>Clan War Roster</h2>
+
+      <div class="controls">
+        <label for="statusFilter">Filter by Status:</label>
+        <select id="statusFilter">
+          <option value="all">All</option>
+          <option value="in">In War</option>
+          <option value="out">Out</option>
+        </select>
+
+        <label for="strategyFilter">Filter by Strategy:</label>
+        <select id="strategyFilter">
+          <option value="all">All</option>
+        </select>
+      </div>
+
       <table id="warTable">
         <thead>
           <tr>
-            <th>Player</th>
-            <th>Status</th>
-            <th>Town Hall</th>
-            <th>Army/Strategy</th>
+            <th data-sort="name">Player</th>
+            <th data-sort="status">Status</th>
+            <th data-sort="th">Town Hall</th>
+            <th data-sort="strategy">Army/Strategy</th>
           </tr>
         </thead>
-        <tbody>
-        </tbody>
+        <tbody></tbody>
       </table>
+
+      <div class="stats" id="stats"></div>
     </div>
   </div>
 
   <script>
     const DATA_URL = "data/warData.json";
     const tableBody = document.querySelector('#warTable tbody');
+    const statusFilter = document.getElementById('statusFilter');
+    const strategyFilter = document.getElementById('strategyFilter');
+    const statsDiv = document.getElementById('stats');
+
     let players = {};
+    let currentSort = { column: 'th', asc: false };
 
     async function loadData() {
       try {
         const res = await fetch(DATA_URL + `?t=${Date.now()}`);
         players = await res.json();
+        populateStrategyFilter();
         renderTable();
       } catch (err) {
         console.error("Failed to load data", err);
       }
     }
 
+    function populateStrategyFilter() {
+      const strategies = new Set(Object.values(players).map(p => p.strategy || 'Unknown'));
+      strategies.forEach(s => {
+        const option = document.createElement('option');
+        option.value = s;
+        option.textContent = s;
+        strategyFilter.appendChild(option);
+      });
+    }
+
     function renderTable() {
       tableBody.innerHTML = '';
-      Object.keys(players).forEach(name => {
-        const { status, th, strategy } = players[name];
+
+      let filtered = Object.entries(players).filter(([name, data]) => {
+        const statusMatch = statusFilter.value === 'all' || data.status === statusFilter.value;
+        const strategyMatch = strategyFilter.value === 'all' || (data.strategy || 'Unknown') === strategyFilter.value;
+        return statusMatch && strategyMatch;
+      });
+
+      // Sort
+      filtered.sort((a, b) => {
+        const [nameA, dataA] = a;
+        const [nameB, dataB] = b;
+        let valA, valB;
+        switch(currentSort.column) {
+          case 'name': valA = nameA.toLowerCase(); valB = nameB.toLowerCase(); break;
+          case 'status': valA = dataA.status; valB = dataB.status; break;
+          case 'th': valA = dataA.th || 0; valB = dataB.th || 0; break;
+          case 'strategy': valA = dataA.strategy || 'Unknown'; valB = dataB.strategy || 'Unknown'; break;
+        }
+        if(valA < valB) return currentSort.asc ? -1 : 1;
+        if(valA > valB) return currentSort.asc ? 1 : -1;
+        return 0;
+      });
+
+      filtered.forEach(([name, {status, th, strategy}]) => {
         const row = document.createElement('tr');
+        const stratClass = strategy === 'Unknown' ? 'strategy unknown' : 'strategy';
         row.innerHTML = `
           <td>${name}</td>
           <td class="status-${status}">${status === 'in' ? 'In War' : 'Out (Upgrading)'}</td>
           <td>${th || '---'}</td>
-          <td class="strategy">${strategy || '---'}</td>
+          <td class="${stratClass}">${strategy || '---'}</td>
         `;
         tableBody.appendChild(row);
       });
+
+      renderStats(filtered);
     }
+
+    function renderStats(filtered) {
+      const total = filtered.length;
+      const inCount = filtered.filter(([_, p]) => p.status === 'in').length;
+      const outCount = total - inCount;
+
+      statsDiv.innerHTML = `Total Players: ${total} | In War: ${inCount} | Out: ${outCount}`;
+    }
+
+    document.querySelectorAll('#warTable th').forEach(th => {
+      th.addEventListener('click', () => {
+        const col = th.dataset.sort;
+        if(currentSort.column === col) currentSort.asc = !currentSort.asc;
+        else { currentSort.column = col; currentSort.asc = true; }
+        renderTable();
+      });
+    });
+
+    statusFilter.addEventListener('change', renderTable);
+    strategyFilter.addEventListener('change', renderTable);
 
     loadData();
   </script>
 </body>
 </html>
-
