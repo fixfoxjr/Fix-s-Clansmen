@@ -5,5 +5,19 @@
   "Obisas": { "status": "in", "th": 12, "strategy": "Unknown" },
   "Mokka Master": { "status": "in", "th": 11, "strategy": "Unknown" },
   "Dei": { "status": "in", "th": 11, "strategy": "Hog Rush" },
-  "Mixing Panda": { "status": "in", "th": 11, "strategy": "Air Spam" }
+  "Mixing Panda": { "status": "in", "th": 11, "strategy": "Air Spam" },
+  "Viking": { "status": "in", "th": 9, "strategy": "Air Spam" },
+  "Nammenam": { "status": "in", "th": 9, "strategy": "Air Spam" },
+  "Syro": { "status": "in", "th": 10, "strategy": "Unknown" },
+  "Mrs.Fix": { "status": "in", "th": 10, "strategy": "Pekka/healer Spam" },
+  "Benjamin": { "status": "in", "th": 13, "strategy": "Witch Spam" },
+  "Battlfire": { "status": "in", "th": 13, "strategy": "Pekka/Hero Spam" },
+  "Peperoni Pizza": { "status": "in", "th": 15, "strategy": "Unknown" },
+  "Mrs Tz": { "status": "in", "th": 11, "strategy": "Pekka Spam" },
+  "Pilot Potet": { "status": "in", "th": 13, "strategy": "Unknown" },
+  "Mr.Fix": { "status": "in", "th": 11, "strategy": "Dragon Rush" },
+  "Mrtollefsen": { "status": "in", "th": 11, "strategy": "Dragon Rush" },
+  "Fixifling": { "status": "in", "th": 3, "strategy": "Unknown" },
+  "Ursid": { "status": "in", "th": 9, "strategy": "Unknown" },
+  "Redfoxius": { "status": "in", "th": 6, "strategy": "Unknown" }
 }
