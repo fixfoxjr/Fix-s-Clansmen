@@ -1,4 +1,9 @@
 {
   "Fix": { "status": "out", "th": 17, "strategy": "Valk Rush" },
-  "Dei": { "status": "in", "th": 11, "strategy": "Hog Rush" }
+  "William": { "status": "in", "th": 16, "strategy": "Bowler/Witch Spam" },
+  "Mazozol": { "status": "in", "th": 13, "strategy": "Electro Spam" },
+  "Obisas": { "status": "in", "th": 12, "strategy": "Unknown" },
+  "Mokka Master": { "status": "in", "th": 11, "strategy": "Unknown" },
+  "Dei": { "status": "in", "th": 11, "strategy": "Hog Rush" },
+  "Mixing Panda": { "status": "in", "th": 11, "strategy": "Air Spam" }
 }
